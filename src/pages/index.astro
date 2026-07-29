@@ -1,171 +1,32 @@
 ---
-// این بخش فرانت‌متر (Frontmatter) است. متغیرها و منطق اینجا نوشته می‌شود.
-const siteTitle = "وب‌سایت من";
-const technologies = ["Astro", "Cloudflare", "GitHub"];
+// پیدا کردن تمام فایل‌های داستان در پوشه stories
+const stories = await Astro.glob('./stories/*.md');
 ---
 
 <html lang="fa" dir="rtl">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{siteTitle} | خانه</title>
+    <title سایت داستان‌های من</title>
   </head>
-  <body>
-    <!-- هدر سایت -->
-    <header>
-      <nav>
-        <div class="logo">{siteTitle}</div>
-        <ul>
-          <li><a href="#">خانه</a></li>
-          <li><a href="#about">درباره من</a></li>
-          <li><a href="#contact">تماس</a></li>
-        </ul>
-      </nav>
+  <body style="font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #1e293b; color: #f1f5f9; margin: 0; padding: 0;">
+    <header style="background-color: #0f172a; padding: 20px; text-align: center;">
+      <h1 style="margin: 0; color: #38bdf8;">داستان‌های من 📚</h1>
+      <p style="color: #94a3b8;">مجموعه داستان‌های کوتاه و روایت‌ها</p>
     </header>
 
-    <!-- بخش اصلی (Hero) -->
-    <main>
-      <section class="hero">
-        <h1>به دنیای <span class="highlight">Astro</span> خوش آمدید 👋</h1>
-        <p>یک سایت فوق‌سریع، سئو شده و میزبانی شده روی شبکه قدرتمند کلادفلر.</p>
-        <a href="#about" class="btn">بزن بریم!</a>
-      </section>
-
-      <!-- بخش ویژگی‌ها -->
-      <section id="about" class="features">
-        <h2>چرا این سایت؟</h2>
-        <div class="cards">
-          {technologies.map((tech) => (
-            <div class="card">
-              <h3>⚡ {tech}</h3>
-              <p>این سایت با تکنولوژی‌های مدرن ساخته شده تا سریع‌ترین تجربه را به شما بدهد.</p>
-            </div>
-          ))}
-        </div>
-      </section>
+    <main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+      <h2>آخرین داستان‌ها:</h2>
+      <ul style="list-style: none; padding: 0;">
+        {/* چرخیدن روی داستان‌ها و ساختن لینک برای آن‌ها */}
+        {stories.map((story) => (
+          <li style="background: #334155; margin-bottom: 15px; padding: 20px; border-radius: 8px; transition: 0.2s;">
+            <a href={story.url} style="color: white; text-decoration: none; font-size: 1.2rem; font-weight: bold;">
+              {story.frontmatter.title}
+            </a>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin: 5px 0 0 0;">تاریخ: {story.frontmatter.date}</p>
+          </li>
+        ))}
+      </ul>
     </main>
-
-    <!-- فوتر -->
-    <footer>
-      <p>ساخته شده با ❤️ توسط Astro</p>
-    </footer>
   </body>
 </html>
-
-<!-- استایل‌های اختصاصی همین صفحه -->
-<style>
-  /* استایل‌های کلی */
-  :global(body) {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0f172a; /* پس‌زمینه تیره */
-    color: #f1f5f9;
-    line-height: 1.6;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  /* هدر */
-  header {
-    padding: 1.5rem 2rem;
-    background-color: #1e293b;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  }
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #38bdf8;
-  }
-  nav ul {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-  }
-  nav ul li a:hover {
-    color: #38bdf8;
-  }
-
-  /* بخش اصلی */
-  .hero {
-    text-align: center;
-    padding: 6rem 2rem;
-  }
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-  .hero p {
-    font-size: 1.2rem;
-    color: #94a3b8;
-    max-width: 600px;
-    margin: 0 auto 2rem auto;
-  }
-  .highlight {
-    color: #38bdf8;
-  }
-  .btn {
-    background-color: #38bdf8;
-    color: #0f172a;
-    padding: 0.8rem 2rem;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: 0.3s ease;
-  }
-  .btn:hover {
-    background-color: #0ea5e9;
-    transform: translateY(-3px);
-  }
-
-  /* بخش کارت‌ها */
-  .features {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  .features h2 {
-    font-size: 2rem;
-    margin-bottom: 3rem;
-  }
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-  }
-  .card {
-    background-color: #1e293b;
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px solid #334155;
-    transition: 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-    border-color: #38bdf8;
-  }
-  .card h3 {
-    color: #38bdf8;
-    margin-top: 0;
-  }
-
-  /* فوتر */
-  footer {
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-    border-top: 1px solid #334155;
-    color: #64748b;
-  }
-</style>
