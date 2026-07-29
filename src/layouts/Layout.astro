@@ -1,23 +1,23 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+---
+// دریافت اطلاعات داستان (عنوان و تاریخ)
+const { frontmatter } = Astro.props;
+---
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <title>{frontmatter.title}</title>
+  </head>
+  <body style="font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #fdf6e3; color: #2d2d2d; line-height: 1.8; padding: 20px;">
+    <div style="max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <a href="/" style="color: #d97706; text-decoration: none;">&larr; بازگشت به خانه</a>
+      <h1 style="color: #78350f; border-bottom: 2px solid #fde68a; padding-bottom: 10px; margin-top: 20px;">{frontmatter.title}</h1>
+      <p style="color: #6b7280; font-size: 0.9rem;">تاریخ: {frontmatter.date}</p>
+      
+      <div style="margin-top: 30px; font-size: 1.1rem;">
+        <!-- اینجا متن داستان شما قرار می‌گیرد -->
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
